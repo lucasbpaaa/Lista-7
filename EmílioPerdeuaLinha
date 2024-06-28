@@ -12,7 +12,22 @@ def merge_intervals(lista):
         i += 1
     return new_list
 
-
-
-
 merge_intervals([[1, 2], [2, 3], [10, 12], [8, 9]])
+
+
+#Question 3: 
+def missing_int(lista):
+    right= 0
+    left = len(lista) - 1
+    while right <= left:
+        mid = (right + left) // 2
+        
+        #Vamos verificar se o valor ausente está à esquerda ou à direita do ponto médio
+        if lista[mid] == lista[0] + mid:
+            right = mid + 1
+        else:
+            left = mid - 1
+    
+    # No final, left será o índice onde a transição ocorre, então o primeiro faltante é nums[0] + left
+    return lista[0] + right
+print(missing_int([2, 3, 4, 5, 6, 8]))
