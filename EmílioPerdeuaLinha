@@ -7,12 +7,12 @@ import matplotlib.pyplot as plt
 def polinomio(x):
   return x**8-3*x**4+2*x**3-2*x**2-x+2
 
-#Vamos fazer o que na matemática é chamado de interpolação aritmética. Basta tomarmos os valores iniciais e finais de uma sequência e criar uma PA com termo inicial ci, termo final fi e razão "passo" como abaixo:
+#Vamos fazer o que na matemática é chamado de interpolação aritmética. Basta tomarmos os valores iniciais e finais de uma sequência e criar uma PA com termo inicial a0, termo final an e razão "r" como abaixo:
 
 a0=-1.5 #começo do intervalo
 an= 1.5 #final do intervalo
 numpontos= 1000 #número de pontos 
-passo = (an-a0)/(numpontos-1)
+r = (an-a0)/(numpontos-1)
 pontos=[]
 
 for _ in range(numpontos): #gera os pontos 
