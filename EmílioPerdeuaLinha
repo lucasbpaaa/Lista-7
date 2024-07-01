@@ -9,16 +9,16 @@ def polinomio(x):
 
 #Vamos fazer o que na matemática é chamado de interpolação aritmética. Basta tomarmos os valores iniciais e finais de uma sequência e criar uma PA com termo inicial ci, termo final fi e razão "passo" como abaixo:
 
-ci=-1.5 #começo do intervalo
-fi= 1.5 #final do intervalo
+a0=-1.5 #começo do intervalo
+an= 1.5 #final do intervalo
 numpontos= 1000 #número de pontos 
-passo = (fi-ci)/(numpontos-1)
+passo = (an-a0)/(numpontos-1)
 pontos=[]
 
 for _ in range(numpontos): #gera os pontos 
-  y=polinomio(ci)
-  pontos.append((ci, y))
-  ci = ci + passo 
+  y=polinomio(a0)
+  pontos.append((a0, y))
+  a0 = a0 + passo 
 
 arquivo= 'pontos_do_polinomio.csv'
 
