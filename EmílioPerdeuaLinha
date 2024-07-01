@@ -1,3 +1,53 @@
+#Question 1:
+
+import csv
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def polinomio(x):
+  return x**8-3*x**4+2*x**3-2*x**2-x+2
+
+#Vamos fazer o que na matemática é chamado de interpolação aritmética. Basta tomarmos os valores iniciais e finais de uma sequência e criar uma PA com termo inicial ci, termo final fi e razão "passo" como abaixo:
+
+ci=-1.5 #começo do intervalo
+fi= 1.5 #final do intervalo
+numpontos= 1000 #número de pontos 
+passo = (fi-ci)/(numpontos-1)
+pontos=[]
+
+for _ in range(numpontos): #gera os pontos 
+  y=polinomio(ci)
+  pontos.append((ci, y))
+  ci = ci + passo 
+
+arquivo= 'pontos_do_polinomio.csv'
+
+with open(arquivo, 'w', newline='') as arquivo_csv: #w é para escrever
+  escrever = csv.writer(arquivo_csv)
+  escrever.writerow(['x', 'y']) #cria uma linha indicando qual coluna é x e qual é y no arquivo
+  for ponto in pontos:
+    escrever.writerow(ponto)
+
+# Ler pontos do arquivo CSV
+arr = open('pontos_polinomio.csv', 'w')
+arr.close()
+nome_arquivo = 'pontos_polinomio.csv'
+dados = pd.read_csv(nome_arquivo)
+
+x = dados['x']
+y = dados['y']
+
+# Plotar o gráfico
+plt.figure(figsize=(8, 6))
+plt.plot(x, y, label='P(x) = x^8 - 3x^4 + 2x^3 - 2x^2 - x + 2', color='blue')
+plt.title('Gráfico do polinômio P(x)')
+plt.xlabel('x')
+plt.ylabel('P(x)')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
 #Question 2:
 def merge_intervals(lista):
     lista.sort()
@@ -30,7 +80,7 @@ def missing_int(lista):
     
     # No final, left será o índice onde a transição ocorre, então o primeiro faltante é nums[0] + left
     return lista[0] + right
-print(missing_int([2, 3, 4, 5, 6, 8]))
+missing_int([2, 3, 4, 5, 6, 8])
 
 
 #Question 4:
@@ -69,3 +119,61 @@ class Linked_list:
       
 
 Linked_list([1, 2, 3, 3, 2, 1]).is_palindrome()
+
+
+#Question 5:
+class Vector3D:
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+    
+    def __str__(self):
+        return f"({self.x}, {self.y}, {self.z})"
+    
+    def __add__(self, other):
+        return Vector3D(self.x + other.x, self.y + other.y, self.z + other.z)
+    
+    def __sub__(self, other):
+        return Vector3D(self.x - other.x, self.y - other.y, self.z - other.z)
+    
+    def __mul__(self, scalar):
+        return Vector3D(self.x * scalar, self.y * scalar, self.z * scalar)
+    
+    def __rmul__(self, scalar):
+        return self.__mul__(scalar)
+    
+    def dot(self, other):
+        return self.x * other.x + self.y * other.y + self.z * other.z
+    
+    def cross(self, other):
+        return Vector3D(self.y * other.z - self.z * other.y,
+                        self.z * other.x - self.x * other.z,
+                        self.x * other.y - self.y * other.x)
+
+
+from Vector3D import Vector3D
+
+def main():
+    # Teste de inicialização e representação do vetor
+    v1 = Vector3D(1, 2, 3)
+    v2 = Vector3D(-1, 0, 1)
+    print(f"v1 = {v1}")
+    print(f"v2 = {v2}")
+    
+    # Teste de operações vetoriais
+    print(f"v1 + v2 = {v1 + v2}")  # Soma
+    print(f"v1 - v2 = {v1 - v2}")  # Subtração
+    print(f"2 * v1 = {2 * v1}")    # Multiplicação por escalar
+    print(f"v2 * 3 = {v2 * 3}")    # Multiplicação por escalar
+    print(f"v1 . v2 = {v1.dot(v2)}")  # Produto escalar
+    print(f"v1 x v2 = {v1.cross(v2)}")  # Produto vetorial
+
+if __name__ == "__main__":
+    main()
+
+
+#Para organização:
+#Crie um diretório chamado Vector3D.
+#Dentro desse diretório, crie os arquivos Vector3D.py (contendo a classe Vector3D) e test_Vector3D.py (contendo o script de teste).
+#Para executar o script de teste a partir da linha de comando, você pode usar o comando python test_Vector3D.py após navegar até o diretório onde está o arquivo test_Vector3D.py.
